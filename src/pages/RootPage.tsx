@@ -1,15 +1,17 @@
-import "./App.css";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import { ROUTES } from "../consts";
 
 function RootPage() {
-  return (
+  const { pathname } = useLocation();
+  const isRoot = pathname === "/";
+  return isRoot ? (
     <>
       <div></div>
       <h1>Disco Notes</h1>
-      <div className="card"></div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Link to={ROUTES.NOTES}>Notes</Link>
     </>
+  ) : (
+    <Outlet />
   );
 }
 
