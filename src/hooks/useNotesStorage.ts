@@ -1,15 +1,15 @@
+import { router } from "../pages/router";
 import { useState } from "react";
-import { NOTES } from "../consts";
+import { NOTES, ROUTES } from "../consts";
 import { Note, Notes } from "../types";
 import { useLocalStorage } from "./useLocalStorage";
 import { DUMMY_NOTES } from "../mocks";
 
 export const useNotesStorage = () => {
   const [storageNotes, setStorageNotes] = useLocalStorage(NOTES, {});
-  const fallbackNotes = Boolean(storageNotes.length)
-    ? storageNotes
-    : DUMMY_NOTES;
+  const fallbackNotes = Boolean(storageNotes) ? storageNotes : DUMMY_NOTES;
   const [notes, setNotes] = useState<Notes>(fallbackNotes);
+
   console.log(
     "🚀 ~ file: useNotesStorage.ts:13 ~ useNotesStorage ~ notes:",
     notes
@@ -17,17 +17,28 @@ export const useNotesStorage = () => {
 
   const getNote = (id: string) => notes[id];
 
-  const addNote = (noteDraft: Note) => {
-    const note = { ...noteDraft, createdTimestamp: Date.now().toString() };
-    setNotes({ ...notes, note });
-    setStorageNotes(notes);
+  const addNote = async (note: Note) => {
+    const updatedNotes = { ...notes, [note.id]: note };
+    setStorageNotes(updatedNotes);
+    setNotes(updatedNotes);
+    router.navigate(`/${ROUTES.NOTES}`);
   };
 
   const editNote = (noteDraft: Note) => {
     const note = { ...noteDraft, updatedTimestamp: Date.now().toString() };
-    setNotes({ ...notes, note });
-    setStorageNotes(notes);
+    setNotes({ ...notes, [note.id]: note });
+    setStorageNotes({ ...notes, [note.id]: note });
+    router.navigate(`/${ROUTES.NOTES}`);
   };
 
-  return { notes, getNote, addNote, editNote };
+  const deleteNote = (noteIdx: string) => {
+    const updatedNotes = Object.fromEntries(
+      Object.entries(notes).filter(([id, _]) => id !== noteIdx)
+    );
+    setNotes(updatedNotes);
+    setStorageNotes(updatedNotes);
+    router.navigate(`/${ROUTES.NOTES}`);
+  };
+
+  return { notes, getNote, addNote, editNote, deleteNote };
 };

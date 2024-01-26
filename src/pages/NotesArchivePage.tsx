@@ -4,13 +4,13 @@ import { useNotesStorage } from "../hooks/useNotesStorage";
 import { Note } from "../types";
 import { router } from "./router";
 
-function NotesPage() {
+function NotesArchivePage() {
   const { notes, editNote } = useNotesStorage();
 
   const notesByDay: Record<string, Note[]> = {};
 
   Object.values(notes)
-    .filter((note) => !note.isCompleted)
+    .filter((note) => note.isCompleted)
     .sort((a, b) => Number(b.createdTimestamp) - Number(a.createdTimestamp))
     .forEach((note) => {
       const date = new Date(Number(note.createdTimestamp));
@@ -23,12 +23,10 @@ function NotesPage() {
     });
   return (
     <>
-      <button onClick={() => router.navigate(`/${ROUTES.NOTES_ARCHIVE}`)}>
-        Archive
-      </button>
+      <button onClick={() => router.navigate(`/${ROUTES.NOTES}`)}>Notes</button>
       <Journal notesByDay={notesByDay} editNote={editNote} />
     </>
   );
 }
 
-export default NotesPage;
+export default NotesArchivePage;

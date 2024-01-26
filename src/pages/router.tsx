@@ -4,6 +4,8 @@ import NotesPage from "./NotesPage";
 import NotePage from "./NotePage";
 import AddNotePage from "./AddNotePage";
 import { ROUTES } from "../consts";
+import NotesArchivePage from "./NotesArchivePage";
+import EditNotePage from "./EditNotePage";
 
 export const router = createBrowserRouter([
   {
@@ -13,26 +15,22 @@ export const router = createBrowserRouter([
       {
         path: `${ROUTES.NOTE}/:id`,
         element: <NotePage />,
-        // loader: ({ request }) =>
-        //   fetch("/api/dashboard.json", {
-        //     signal: request.signal,
-        //   }),
       },
       {
         path: `${ROUTES.ADD_NOTE}`,
         element: <AddNotePage />,
-        // loader: ({ request }) =>
-        //   fetch("/api/dashboard.json", {
-        //     signal: request.signal,
-        //   }),
+      },
+      {
+        path: `${ROUTES.EDIT_NOTE}/:id`,
+        element: <EditNotePage />,
       },
       {
         path: `${ROUTES.NOTES}`,
         element: <NotesPage />,
-        // loader: ({ request }) =>
-        //   fetch("/api/dashboard.json", {
-        //     signal: request.signal,
-        //   }),
+      },
+      {
+        path: `${ROUTES.NOTES_ARCHIVE}`,
+        element: <NotesArchivePage />,
       },
       // {
       //   element: <AuthLayout />,

@@ -5,5 +5,10 @@ export enum ROUTES {
   NOTES = "notes",
   NOTE = "note",
   EDIT_NOTE = "edit-note",
-  ARCHIVED_NOTES = "archived-note",
+  NOTES_ARCHIVE = "notes-archive",
+}
+
+export enum MODES {
+  EDIT = "Edit",
+  ADD = "Add",
 }

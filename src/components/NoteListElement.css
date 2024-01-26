@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  align-items: center;
+  background-color: black;
+  color: white;
+  padding: 1em;
+  margin: 1em;
+}
+
+.card:hover {
+  background-color: white;
+  color: black;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.grid-vertical {
+  display: grid;
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
